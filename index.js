@@ -2,7 +2,14 @@ const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+
+//--------- Adding dishRouter -------
 const dishRouter = require('./routes/dishRouter');
+//--------- Adding leaderRouter -------
+const leaderRouter = require('./routes/leaderRouter');
+//--------- Adding promoRouter -------
+const promoRouter = require('./routes/promoRouter');
+
 
 const hostname = 'localhost';
 const port = 3000;
@@ -10,6 +17,8 @@ const port = 3000;
 const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+
+// // ------ Old code: See routes folder for updates ---------------------------------
 
 // app.all('/dishes', (req, res, next) => {
 //     res.statusCode = 200;
@@ -61,7 +70,12 @@ app.use(bodyParser.json());
 // Any request coming to the /dishes 'endpoint' will be handled by the dishRouter code.
 app.use('/dishes', dishRouter);
 
-// app.use('/dishes/:dishId', dishRouter);
+// Adding '/leaders' as a endpoint router.
+app.use('/leaders', leaderRouter);
+
+// Adding '/promotions' as a endpoint router.
+app.use('/promotions', promoRouter);
+
 
 app.use(express.static(__dirname+ '/public'));
 
